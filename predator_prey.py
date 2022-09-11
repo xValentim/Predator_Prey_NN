@@ -21,7 +21,7 @@ fps = 50
 1 - predator
 2 - prey
 '''
-types = [0, 0, 0, 0, 2]
+types = [0, 0, 2]
 color = [gray, red, white]
 model = Policy(load=True, pos=(0, 0))
 
@@ -70,7 +70,7 @@ else:
                 if ng == 2:
                     z = random.random()
                     if z < float(b):
-                        particules[ng_index[0]][ng_index[1]] = 1
+                        particules[ng_index[0]][ng_index[1]] = 0
             z = random.random()
             if z < float(c):
                 particules[i][j] = 0
@@ -85,9 +85,10 @@ else:
                     '''
                     obs = np.array(get_obs(particules, (i, j))).reshape(1, -1)
                     # action = model(obs).numpy().argmax()
-                    action = model(obs.reshape(1, -1)).numpy().argmax()
+                    # action = model.predict(obs.reshape(1, -1)).numpy().argmax()
                     # action = random.randint(0, 3)
-                    print(action)
+
+                    action = model.policy.predict(obs.reshape(1, -1))[0]
                     apply_action(particules, (i, j), action, model=model)
 
         elif particule == 2:

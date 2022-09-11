@@ -2,6 +2,9 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.optimizers import Adam
 import numpy as np
+import os
+from stable_baselines3 import PPO
+from ppenv import *
 
 class Policy:
     def __init__(self, load=False, pos=(0, 0)):
@@ -15,8 +18,13 @@ class Policy:
             ])
             self.policy.compile(optimizer=Adam(learning_rate=self.alpha))
         else:
-            path_best_model = 'Training/my_model_PP_2'
-            self.policy = keras.models.load_model(path_best_model)
+            env = PPEnv()
+            #path_best_model = 'Training/my_model_PP_2'
+            path_best_model = os.path.join('Training', 'Saved Models', 'PP_PPO_1_2M')
+            self.policy = PPO('MlpPolicy', env=env, verbose=0)
+            self.policy = PPO.load(path_best_model)
+            #self.policy = keras.models.load_model(path_best_model)
+
         
         
     def __call__(self, state):
