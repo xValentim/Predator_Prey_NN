@@ -37,7 +37,7 @@ def get_obs(array, pos):
     for ii in range(-2, 3, 1):
         row = []
         for jj in range(-2, 3, 1):
-            row.append(array[(i + ii) % len(array)][(j + jj) % len(array)])
+            row.append((array[(i + ii) % len(array)][(j + jj) % len(array)] // 2) * 2)
         obs.append(row)     
     return np.array(obs)
 
