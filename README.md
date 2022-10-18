@@ -14,3 +14,18 @@ In this lotka volterra model, we will consider 3 types of elements:
 
 For more details about our environment, check two notebooks: `predator_prey_NN_model.ipynb` and `predator_prey_NN_model_PPO.ipynb`.
 
+We use two types of RL algorithms to train predator policy: *Genetic Algorithms* and *Proximal Policy Optimization*. Lets check both of training:
+
+### Genetic Algorithm:
+
+<img src="imgs/train_predator_Genetic_Algorithm.png" width=500>
+
+Note that our predator policy was trained well. We can use this in our environment and simulations. But, we can try to better reward and train our predator policy with PPO. Lets check it!
+
+### Proximal Policy Optimization:
+
+<img src="imgs/train_predator_2M_and_26M_steps.png" width=700>
+
+We can see in tensorboard that our predator policy was better than Genetic Algorithm, because our reward was better with PPO algorithm. So, we must use this in our environment and simulations. 
+
+
