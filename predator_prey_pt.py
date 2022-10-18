@@ -15,7 +15,7 @@ red = (255, 0, 0)
 background = white
 ball_color = gray
 fps = 200
-t_max = 5000
+t_max = 500000
 
 '''
 0 - empty
@@ -25,7 +25,9 @@ t_max = 5000
 types = [0, 1, 2]
 color = [gray, red, white]
 model = Policy(load=True, pos=(0, 0))
-cs = np.arange(0.18, 0.30, 0.01)
+# cs = np.arange(0.18, 0.30, 0.01)
+cs = [0.25, 0.35]
+rhos = []
 
 
 if len(sys.argv) != 3:
@@ -41,6 +43,7 @@ else:
     pygame.display.set_caption("Predator Prey")
     window.fill(gray)
     for c in cs:
+        rho = []
         t = 0
         particules = np.array([[random.choice(types) for i in range(0, largura, 20)] for j in range(0, altura, 20)])
         L = len(particules)
@@ -50,7 +53,7 @@ else:
         #     model.pos = (i, j)
         #     particules[i][j] = 1
         
-        window.fill(gray)
+        # window.fill(gray)
         continua = True
         rhos = []
         
@@ -66,7 +69,7 @@ else:
 
 
             
-            window.fill(background)
+            # window.fill(background)
             i, j = random.randint(0, len(particules) - 1), random.randint(0, len(particules) - 1)
             # i, j = model.pos
             particule = particules[i][j]
@@ -112,17 +115,21 @@ else:
                             particules[ng_index[0]][ng_index[1]] = 2
 
 
-            for i in range(1, len(particules) - 1):
-                for j in range(1, len(particules[i]) - 1):
-                    pygame.draw.rect(window, color[particules[i][j]], (i * 20 + 1, j * 20 + 1, 20, 20))
+            # for i in range(1, len(particules) - 1):
+            #     for j in range(1, len(particules[i]) - 1):
+            #         pygame.draw.rect(window, color[particules[i][j]], (i * 20 + 1, j * 20 + 1, 20, 20))
 
             t += 1
             relogio.tick(fps)
-            pygame.display.update()
+            if t % 100 == 0:
+                rho.append(np.sum(particules == 1) / (L * L))
 
-        print("c = ", c, "rho = ", np.sum(particules == 1) / (L * L))
-        rhos.append(np.sum(particules == 1) / (L * L))
+            if t % 10000 == 0:
+                print(t, rho[-1], c)
+            # pygame.display.update()
 
-        t = 0
-    print(rhos)
+        rhos.append(rho)   
+    # Save in csv file rhos results for each c with time in x axis
+    for i in range(len(cs)):
+        np.savetxt(f"results/rho_{cs[i]}_{a}_{b}_{c}_{p}.csv", rhos[i], delimiter=",")
     pygame.quit()

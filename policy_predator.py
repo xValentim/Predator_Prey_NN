@@ -24,9 +24,7 @@ class Policy:
             self.policy = PPO('MlpPolicy', env=env, verbose=0)
             self.policy = PPO.load(path_best_model)
             #self.policy = keras.models.load_model(path_best_model)
-
-        
-        
+            
     def __call__(self, state):
         pi = self.policy(state)
         return pi

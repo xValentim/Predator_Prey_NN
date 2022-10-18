@@ -4,7 +4,7 @@ import numpy as np
 import pygame
 import sys
 from policy_predator import *
-
+import time
 
 altura = 500
 largura = 500
@@ -21,6 +21,35 @@ fps = 50
 1 - predator
 2 - prey
 '''
+
+'''
+To run this code, you must type this form: python predator_prey.py a b c
+
+a = prey birth rate
+b = predator birth rate
+c = predator death rate
+p = jump probability
+
+
+This code is a predator prey model with a predator that uses a policy to move.
+
+The prey is born in a random position and the predator is born in the center of the grid.
+
+In this context, we initialize just one predator in the center of the grid. 
+
+If you want to see example of simulation that predator to hunt multiples prey and validate the policy, just set: 
+a = 0
+b = 1
+c = 0
+p = 1
+
+In other other words, type in terminal:
+
+$ python predator_prey.py 0 1 0 1
+
+'''
+
+
 types = [0, 0, 2]
 color = [gray, red, white]
 model = Policy(load=True, pos=(0, 0))
@@ -83,12 +112,16 @@ else:
                     2 - esquerda
                     3 - direita
                     '''
+                    # Get obs and reshape this
                     obs = np.array(get_obs(particules, (i, j))).reshape(1, -1)
-                    # action = model(obs).numpy().argmax()
-                    # action = model.predict(obs.reshape(1, -1)).numpy().argmax()
+
+                    # To run with random walk actions in predator
                     # action = random.randint(0, 3)
 
+                    # Action with pre-trained policy in my local machine
                     action = model.policy.predict(obs.reshape(1, -1))[0]
+
+                    # time.sleep(0.5)
                     apply_action(particules, (i, j), action, model=model)
 
         elif particule == 2:

@@ -1,0 +1,5 @@
+# Add env folder pycache and checkpoints
+env/
+__pycache__/
+.ipynb_checkpoints/
+
