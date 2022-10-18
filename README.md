@@ -12,4 +12,5 @@ In this lotka volterra model, we will consider 3 types of elements:
 
 3) Empty space - We will represent this element with number 0 in our array.
 
-Check two notebooks: 
+For more details about our environment, check two notebooks: `predator_prey_NN_model.ipynb` and `predator_prey_NN_model_PPO.ipynb`.
+
