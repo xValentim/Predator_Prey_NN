@@ -29,3 +29,32 @@ Note that our predator policy was trained well. We can use this in our environme
 We can see in tensorboard that our predator policy was better than Genetic Algorithm, because our reward was better with PPO algorithm. So, we must use this in our environment and simulations. 
 
 
+## Simulations:
+
+Now we have a policy in our predator agent. Lets check simulations in environment in two types of predator policy: Random Walker and Neural Network (Trained with PPO). See two videos below:
+
+### Random Walker:
+
+<img src="imgs/predator_random_walker.gif" width=300>
+
+link to video: https://youtube.com/shorts/oZ86BUYbDQM
+
+### Neural Network (Trained with PPO):
+
+<img src="imgs/predator_NN.gif" width=300>
+
+link to video: https://youtube.com/shorts/YRiek_6ZkGU
+
+You can try to run simulation with policy predator in your terminal with this command:
+
+```bash
+python predator_prey.py 0 1 0 1
+```
+
+Check `predator_prey.py` for more details.
+
+## Conclusions:
+
+You can see in videos and simulations that our predator policy was trained to maximize reward. In other words, the predator will to maximize the number of prey that it can eat.
+
+
