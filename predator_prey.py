@@ -15,6 +15,7 @@ red = (255, 0, 0)
 background = white
 ball_color = gray
 fps = 50
+L_sq = 5
 
 '''
 0 - empty
@@ -59,7 +60,7 @@ if len(sys.argv) != 5:
 else:
     a, b, c, p = sys.argv[1], sys. argv[2], sys.argv[3], sys.argv[4]
     t = 0
-    particules = np.array([[random.choice(types) for i in range(0, largura, 20)] for j in range(0, altura, 20)])
+    particules = np.array([[random.choice(types) for i in range(0, largura, L_sq)] for j in range(0, altura, L_sq)])
     print(len(particules))
     L = len(particules)
     for k in range(1):
@@ -136,8 +137,11 @@ else:
 
         for i in range(1, len(particules) - 1):
             for j in range(1, len(particules[i]) - 1):
-                pygame.draw.rect(window, color[particules[i][j]], (i * 20 + 1, j * 20 + 1, 20, 20))
+                pygame.draw.rect(window, color[particules[i][j]], (i * L_sq + 1, j * L_sq + 1, L_sq, L_sq))
 
+
+        print(t)
+        
         t += 1
         relogio.tick(fps)
         pygame.display.update()

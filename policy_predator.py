@@ -44,15 +44,15 @@ def apply_action(array, pos, action, model=None):
     i, j = pos
     if action == 0:
         array[i][j], array[i][(j + 1) % len(array)] = array[i][(j + 1) % len(array)], array[i][j]
-        # model.pos = (i, (j + 1) % len(array))
+        model.pos = (i, (j + 1) % len(array))
     elif action == 1:
         array[i][j], array[i][(j - 1) % len(array)] = array[i][(j - 1) % len(array)], array[i][j]
-        # model.pos = (i, (j - 1) % len(array))
+        model.pos = (i, (j - 1) % len(array))
     elif action == 2:
         array[i][j], array[(i - 1)  % len(array)][j] = array[(i - 1) % len(array)][j], array[i][j]
-        # model.pos = ((i - 1) % len(array), j)
+        model.pos = ((i - 1) % len(array), j)
     elif action == 3:
         array[i][j], array[(i + 1) % len(array)][j] = array[(i + 1) % len(array)][j], array[i][j]
-        # model.pos = ((i + 1) % len(array), j)
+        model.pos = ((i + 1) % len(array), j)
     return array
     

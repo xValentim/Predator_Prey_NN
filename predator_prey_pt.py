@@ -16,13 +16,14 @@ background = white
 ball_color = gray
 fps = 200
 t_max = 500000
+L_sq = 10
 
 '''
 0 - empty
 1 - predator
 2 - prey
 '''
-types = [0, 1, 2]
+types = [0, 1, 1]
 color = [gray, red, white]
 model = Policy(load=True, pos=(0, 0))
 # cs = np.arange(0.18, 0.30, 0.01)
@@ -45,7 +46,7 @@ else:
     for c in cs:
         rho = []
         t = 0
-        particules = np.array([[random.choice(types) for i in range(0, largura, 20)] for j in range(0, altura, 20)])
+        particules = np.array([[random.choice(types) for i in range(0, largura, L_sq)] for j in range(0, altura, L_sq)])
         L = len(particules)
         # for k in range(1):
         #     # i, j = random.randint(0, len(particules) - 1), random.randint(0, len(particules) - 1)
@@ -54,6 +55,12 @@ else:
         #     particules[i][j] = 1
         
         # window.fill(gray)
+        
+        for i in range(int(L/5), int(L*4/5)):
+            for j in range(int(L/5), int(L*4/5)):
+                particules[i][j] = 2
+                
+        
         continua = True
         rhos = []
         
@@ -84,10 +91,13 @@ else:
                     if ng == 2:
                         z = random.random()
                         if z < float(b):
-                            particules[ng_index[0]][ng_index[1]] = 1
+                            continue
+                            # particules[ng_index[0]][ng_index[1]] = 1
                 z = random.random()
                 if z < float(c):
-                    particules[i][j] = 0
+                    continue
+                    # particules[i][j] = 0
+                    
                 else:
                     z = random.random()
                     if z < float(p):
@@ -106,18 +116,20 @@ else:
                         apply_action(particules, (i, j), action, model=model)
 
             elif particule == 2:
+                pass
                 for k in range(4):
                     ng_index = adress[k]
                     ng = particules[ng_index[0]][ng_index[1]]
                     if ng == 0:
                         z = random.random()
                         if z < float(a):
-                            particules[ng_index[0]][ng_index[1]] = 2
+                            continue
+                            # particules[ng_index[0]][ng_index[1]] = 2
 
 
-            # for i in range(1, len(particules) - 1):
-            #     for j in range(1, len(particules[i]) - 1):
-            #         pygame.draw.rect(window, color[particules[i][j]], (i * 20 + 1, j * 20 + 1, 20, 20))
+            for i in range(1, len(particules) - 1):
+                for j in range(1, len(particules[i]) - 1):
+                    pygame.draw.rect(window, color[particules[i][j]], (i * L_sq + 1, j * L_sq + 1, L_sq, L_sq))
 
             t += 1
             relogio.tick(fps)
@@ -126,7 +138,7 @@ else:
 
             if t % 10000 == 0:
                 print(t, rho[-1], c)
-            # pygame.display.update()
+            pygame.display.update()
 
         rhos.append(rho)   
     # Save in csv file rhos results for each c with time in x axis

@@ -15,7 +15,7 @@ t_max = 90000
 '''
 types = [0, 1, 2]
 model = Policy(load=True, pos=(0, 0))
-cc = 0.26
+cc = float(input("Enter with Cc: "))
 rhos = []
 
 
@@ -29,7 +29,7 @@ def rho(particules):
 
 # L, Li, Lf, Lstep, p = float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5])
 
-L = 200
+L = 100
 a = 0.4
 b = 1 - a - cc
 p = 0
@@ -140,7 +140,7 @@ for nb in range(nb_copies):
     for i in range(min(len(times), len(curr_rho))):
         content += str(times[i]) + ',' + str(curr_rho[i]) + '\n'
 
-    with open(f'data_w_policy_cc/results_{nb}_w_policy_c{int(cc*100)}_{L}.csv', 'w') as f:
+    with open(f'data_w_policy_cc{int(cc*1000)}_{L}/results_{nb}_w_policy_c{int(cc*1000)}_{L}.csv', 'w') as f:
         f.write(content)
     
     print(f'{nb} - {rho(particules)}')
@@ -154,7 +154,7 @@ content = ''
 for i in range(min(len(times), len(rhos))):
     content += str(times[i]) + ',' + str(rhos[i]) + '\n'
 
-with open(f'data_w_policy_cc/results_w_policy_{int(cc*100)}_{L}.csv', 'w') as f:
+with open(f'data_w_policy_cc{int(cc*1000)}_{L}/results_w_policy_{int(cc*1000)}_{L}_total_nb{nb_copies}.csv', 'w') as f:
     f.write(content)
 
 
